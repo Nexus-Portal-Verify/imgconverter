@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Convert | Professional Image Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+        :root {
+            --primary-blue: #0052FF;
+            --accent-red: #FF3B30;
+            --soft-gray: #F5F7FA;
+            --deep-navy: #0A192F;
+        }
+
+        body {
+            background-color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+        }
+
+        .title-font { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Professional Card Style (No Glass) */
+        .tool-card {
+            background: white;
+            border: 2px solid #edf2f7;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 20px 40px rgba(0, 82, 255, 0.1);
+        }
+
+        .tool-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 0; height: 4px;
+            background: var(--primary-blue);
+            transition: width 0.4s ease;
+        }
+
+        .tool-card.red-hover::after { background: var(--accent-red); }
+        .tool-card:hover::after { width: 100%; }
+
+        /* Minimalist Modal */
+        .modal-bg {
+            background: rgba(10, 25, 47, 0.95);
+        }
+
+        .action-btn {
+            background-color: var(--primary-blue);
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #0041cc;
+            transform: scale(1.02);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-red));
+        }
+
+        /* Entrance Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50/50">
+
+    <div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-red-500 to-blue-600 z-50"></div>
+
+    <div class="container mx-auto max-w-6xl px-6 py-20">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div onclick="openLab('PNG TO JPG', 'png', 'jpeg', 'blue')" class="tool-card animate-in p-10 rounded-[32px] cursor-pointer group" style="animation-delay: 0.1s;">
+                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fa-solid fa-image text-blue-600 group-hover:text-white text-2xl"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold mb-3 tracking-tight">PNG to <span class="text-blue-600">JPG</span></h3>
+                <p class="text-gray-500 text-sm leading-relaxed">High-fidelity conversion with optimized white background filling.</p>
+            </div>
+
+            <div onclick="openLab('JPG TO PNG', 'jpeg', 'png', 'red')" class="tool-card red-hover animate-in p-10 rounded-[32px] cursor-pointer group" style="animation-delay: 0.2s;">
+                <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-red-500 transition-colors duration-300">
+                    <i class="fa-solid fa-file-image text-red-600 group-hover:text-white text-2xl"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold mb-3 tracking-tight">JPG to <span class="text-red-500">PNG</span></h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Studio-grade lossless conversion for maximum image clarity.</p>
+            </div>
+
+            <div onclick="openLab('JPEG TO PNG', 'jpeg', 'png', 'blue')" class="tool-card animate-in p-10 rounded-[32px] cursor-pointer group" style="animation-delay: 0.3s;">
+                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fa-solid fa-wand-magic-sparkles text-blue-600 group-hover:text-white text-2xl"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold mb-3 tracking-tight">JPEG to <span class="text-blue-600">PNG</span></h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Transform standard JPEGs into versatile transparent assets.</p>
+            </div>
+
+            <div onclick="openLab('JPEG TO JPG', 'jpeg', 'jpeg', 'red')" class="tool-card red-hover animate-in p-10 rounded-[32px] cursor-pointer group" style="animation-delay: 0.4s;">
+                <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-red-500 transition-colors duration-300">
+                    <i class="fa-solid fa-file-invoice text-red-600 group-hover:text-white text-2xl"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold mb-3 tracking-tight">JPEG to <span class="text-red-500">JPG</span></h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Standardize file naming conventions for professional databases.</p>
+            </div>
+
+            <div onclick="openLab('PNG TO JPEG', 'png', 'jpeg', 'blue')" class="tool-card animate-in p-10 rounded-[32px] cursor-pointer group" style="animation-delay: 0.5s;">
+                <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors duration-300">
+                    <i class="fa-solid fa-cloud-arrow-down text-blue-600 group-hover:text-white text-2xl"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold mb-3 tracking-tight">PNG to <span class="text-blue-600">JPEG</span></h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Advanced compression for faster web performance and SEO.</p>
+            </div>
+
+            <div onclick="openLab('JPG TO JPEG', 'jpeg', 'jpeg', 'red')" class="tool-card red-hover animate-in p-10 rounded-[32px] cursor-pointer group" style="animation-delay: 0.6s;">
+                <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-red-500 transition-colors duration-300">
+                    <i class="fa-solid fa-shuffle text-red-600 group-hover:text-white text-2xl"></i>
+                </div>
+                <h3 class="title-font text-xl font-bold mb-3 tracking-tight">JPG to <span class="text-red-500">JPEG</span></h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Ensure cross-platform compatibility with universal extensions.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="labModal" class="fixed inset-0 z-[100] modal-bg flex items-center justify-center p-6 opacity-0 pointer-events-none transition-all duration-500">
+        <div class="bg-white w-full max-w-xl rounded-[40px] p-12 relative shadow-2xl scale-95 transition-transform duration-500" id="modalContent">
+            <button onclick="closeLab()" class="absolute top-8 right-10 text-gray-400 hover:text-black transition text-3xl">&times;</button>
+            
+            <div class="text-center">
+                <span id="labBadge" class="px-4 py-1 bg-blue-50 text-blue-600 text-[10px] font-extrabold tracking-widest rounded-full uppercase mb-4 inline-block">Active Lab</span>
+                <h2 id="labTitle" class="title-font text-3xl font-bold mb-10 tracking-tight">CONVERTING IMAGE</h2>
+                
+                <div id="state-upload" class="border-2 border-dashed border-gray-100 bg-gray-50/50 rounded-[32px] py-20 cursor-pointer hover:border-blue-200 transition" onclick="document.getElementById('fileInput').click()">
+                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                        <i class="fa-solid fa-plus text-blue-600"></i>
+                    </div>
+                    <p class="font-bold text-sm text-gray-700">Choose Image</p>
+                    <p class="text-xs text-gray-400 mt-1">Select the file you want to process</p>
+                    <input type="file" id="fileInput" class="hidden">
+                </div>
+
+                <div id="state-loading" class="hidden py-10">
+                    <div class="flex justify-between items-end mb-4">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Processing</p>
+                        <p id="progressVal" class="text-2xl font-bold title-font">0%</p>
+                    </div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                        <div id="progressBar" class="progress-fill h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <div id="state-success" class="hidden">
+                    <div class="bg-gray-50 p-4 rounded-[32px] inline-block mb-8 border border-gray-100">
+                        <img id="finalImg" class="w-48 h-48 object-cover rounded-[24px]">
+                    </div>
+                    <div class="flex gap-4">
+                        <button onclick="closeLab()" class="flex-1 py-5 rounded-2xl bg-gray-100 text-gray-600 font-bold text-xs uppercase hover:bg-gray-200 transition">Back</button>
+                        <a id="downloadBtn" class="flex-1 py-5 rounded-2xl action-btn text-white font-bold text-xs uppercase shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="mainCanvas" class="hidden"></canvas>
+
+    <script>
+        let currentJob = { in: '', out: '' };
+        const labModal = document.getElementById('labModal');
+        const modalContent = document.getElementById('modalContent');
+        const fileInput = document.getElementById('fileInput');
+
+        function openLab(title, inE, outE, theme) {
+            currentJob = { in: inE, out: outE };
+            document.getElementById('labTitle').innerText = title;
+            document.getElementById('labBadge').style.backgroundColor = theme === 'blue' ? '#eff6ff' : '#fef2f2';
+            document.getElementById('labBadge').style.color = theme === 'blue' ? '#2563eb' : '#dc2626';
+            
+            // Reset Views
+            document.getElementById('state-upload').classList.remove('hidden');
+            document.getElementById('state-loading').classList.add('hidden');
+            document.getElementById('state-success').classList.add('hidden');
+            
+            fileInput.accept = `image/${inE === 'jpg' ? 'jpeg' : inE}`;
+            labModal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+        }
+
+        function closeLab() {
+            labModal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.add('scale-95');
+            fileInput.value = '';
+        }
+
+        fileInput.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('state-upload').classList.add('hidden');
+                document.getElementById('state-loading').classList.remove('hidden');
+                
+                let p = 0;
+                const bar = document.getElementById('progressBar');
+                const val = document.getElementById('progressVal');
+                const timer = setInterval(() => {
+                    p += Math.random() * 30;
+                    if (p >= 100) {
+                        p = 100;
+                        clearInterval(timer);
+                        finalize(file);
+                    }
+                    bar.style.width = p + '%';
+                    val.innerText = Math.round(p) + '%';
+                }, 150);
+            }
+        };
+
+        function finalize(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.getElementById('mainCanvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    if (currentJob.out === 'jpeg') {
+                        ctx.fillStyle = "#fff";
+                        ctx.fillRect(0,0,canvas.width, canvas.height);
+                    }
+                    ctx.drawImage(img, 0, 0);
+                    const format = `image/${currentJob.out === 'jpg' ? 'jpeg' : currentJob.out}`;
+                    const data = canvas.toDataURL(format, 0.92);
+                    
+                    document.getElementById('finalImg').src = data;
+                    const dBtn = document.getElementById('downloadBtn');
+                    dBtn.href = data;
+                    dBtn.download = `nexus_pro_${Date.now()}.${currentJob.out}`;
+                    
+                    document.getElementById('state-loading').classList.add('hidden');
+                    document.getElementById('state-success').classList.remove('hidden');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
